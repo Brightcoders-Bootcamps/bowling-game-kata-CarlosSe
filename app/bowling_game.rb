@@ -19,8 +19,16 @@ class BowlingGame
   end
 
   def print_game
+    print_shoots
+    print_score
+  end
+
+  def print_shoots
     @frames.map { |frame| print "#{frame.first_shoot}|#{frame.second_shoot} " }
     print "\n"
+  end
+
+  def print_score
     10.times do |position|
       @total_score += @frames[position].score
       print " #{@total_score} "
@@ -29,8 +37,10 @@ class BowlingGame
   end
 
   def validate_last_frame
-    data = GameData.new(@frames, @errors)
-    data.promp_for_data if @frames.last.score == 10
+    if @frames.last.score == 10
+      data = GameData.new(@frames, @errors)
+      data.promp_for_data
+    end
   end
 end
 

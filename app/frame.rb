@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require_relative('bonus')
 # This class creates a new frame and calculate score with bonus
 class Frame
   attr_accessor :score
@@ -11,15 +12,8 @@ class Frame
     @score = first_shoot + second_shoot
   end
 
-  def calculate_score_bonus(previous_frames)
-    last_frame = previous_frames[0]
-    penultimate_frame = previous_frames[1]
-    if penultimate_frame.first_shoot == 10 && last_frame.first_shoot == 10
-      penultimate_frame.score += last_frame.score + @first_shoot
-    elsif penultimate_frame.first_shoot == 10
-      penultimate_frame.score += last_frame.score
-    elsif penultimate_frame.score == 10
-      penultimate_frame.score += last_frame.first_shoot
-    end
+  def calculate_score_bonus(penultimate_frame, last_frame)
+    bonus = Bonus.new(penultimate_frame, last_frame, self)
+    bonus.calculate
   end
 end

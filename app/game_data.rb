@@ -24,7 +24,8 @@ class GameData
   def create_frame(first_shoot, second_shoot)
     frame = Frame.new(first_shoot, second_shoot)
     @frames << frame
-    frame.calculate_score_bonus(@frames.reverse.take(2)) if @frames.size >= 2
+    previous_frames = @frames.reverse.take(2)
+    frame.calculate_score_bonus(previous_frames[0], previous_frames[1]) if @frames.size >= 2
   end
 
   def handle_errors

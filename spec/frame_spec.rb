@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative '../frame'
+require_relative '../app/frame'
 
 RSpec.describe Frame do
   before(:all) do

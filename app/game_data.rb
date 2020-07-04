@@ -1,18 +1,14 @@
 # frozen_string_literal: true
 
 require_relative('frame')
+require_relative('errors')
 # This class captures, validates and displays errors of the data entered by the user
 class GameData
-  def initialize(frames, errors)
-    @frames = frames
-    @errors = errors
-  end
-
-  def promp_for_data
+  def promp_for_data(frames)
     first_shoot = capture_data('First shoot: ')
     second_shoot = 0
     second_shoot = capture_data('Second shoot: ') if first_shoot < 10
-    validate_data(first_shoot, second_shoot)
+    check_for_errors(frames, first_shoot, second_shoot)
   end
 
   def capture_data(message)
@@ -21,22 +17,15 @@ class GameData
     shoot
   end
 
-  def create_frame(first_shoot, second_shoot)
+  def check_for_errors(frames, first_shoot, second_shoot)
+    errors = Errors.new.validate_data(first_shoot, second_shoot)
+    errors == false ? create_frame(frames, first_shoot, second_shoot) : promp_for_data(frames)
+  end
+
+  def create_frame(frames, first_shoot, second_shoot)
     frame = Frame.new(first_shoot, second_shoot)
-    @frames << frame
-    previous_frames = @frames.reverse.take(2)
-    frame.calculate_score_bonus(previous_frames[0], previous_frames[1]) if @frames.size >= 2
-  end
-
-  def handle_errors
-    puts 'Error en los datos'
-    @errors = false
-    promp_for_data
-  end
-
-  def validate_data(first_shoot, second_shoot)
-    @errors = true if (first_shoot || second_shoot).negative? || (first_shoot || second_shoot) > 10
-    @errors = true if (first_shoot + second_shoot) > 10
-    @errors ? handle_errors : create_frame(first_shoot, second_shoot)
+    frames << frame
+    previous_frames = frames.reverse.take(2)
+    frame.calculate_score_bonus(previous_frames[0], previous_frames[1]) if frames.size >= 2
   end
 end

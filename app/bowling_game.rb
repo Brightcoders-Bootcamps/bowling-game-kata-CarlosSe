@@ -1,45 +1,27 @@
 # frozen_string_literal: true
 
 require_relative('game_data')
+require_relative('print_game')
 # This class validates the last frame, starts the game and prints it
 class BowlingGame
-  attr_reader :frames, :errors, :total_score
+  attr_reader :frames
 
   def initialize
     @frames = []
-    @errors = false
-    @total_score = 0
   end
 
   def start
-    data = GameData.new(@frames, @errors)
-    data.promp_for_data while @frames.size < 10
+    data = GameData.new
+    printer = PrintGame.new(@frames)
+    data.promp_for_data(@frames) while @frames.size < 10
     validate_last_frame
-    print_game
-  end
-
-  def print_game
-    print_shoots
-    print_score
-  end
-
-  def print_shoots
-    @frames.map { |frame| print "#{frame.first_shoot}|#{frame.second_shoot} " }
-    print "\n"
-  end
-
-  def print_score
-    10.times do |position|
-      @total_score += @frames[position].score
-      print " #{@total_score} "
-    end
-    print "\n"
+    printer.print_game
   end
 
   def validate_last_frame
     if @frames.last.score == 10
-      data = GameData.new(@frames, @errors)
-      data.promp_for_data
+      data = GameData.new
+      data.promp_for_data(@frames)
     end
   end
 end

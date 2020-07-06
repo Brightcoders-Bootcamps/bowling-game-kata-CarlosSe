@@ -1,0 +1,17 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    repo-small-badge (0.2.7)
+      victor (~> 0.2.8)
+    rubycritic-small-badge (0.2.1)
+      repo-small-badge (~> 0.2.7)
+    victor (0.2.8)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  rubycritic-small-badge
+
+BUNDLED WITH
+   2.1.4

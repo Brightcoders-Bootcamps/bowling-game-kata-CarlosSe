@@ -1,3 +1,5 @@
+![Coverage](badges/rubycritic_badge_score.svg)
+
 ![BrightCoders Logo](img/logo-bc.png)
 
 # The Bowling Game Kata

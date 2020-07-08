@@ -1,14 +1,13 @@
-**Start the game**  
-cd app  
-ruby bowling_game.rb  
+**Start the game**    
+ruby app/bowling_game.rb  
 
 **Run code quality report**  
-cd app  
-rubycritic  
+rubycritic app/
+rubycritic spec/
 
 **Run Code analyzer**  
-cd app  
-rubocop  
+rubocop app/
+rubocop spec/
 
 **Run tests**  
 rspec  

@@ -35,9 +35,9 @@ RSpec.describe Frame do
   end
 
   it 'Calculate the bonus score with 1 Spare' do
-    @first_frame = Frame.new(10, 0)
+    @first_frame = Frame.new(8, 2)
     @second_frame = Frame.new(4, 2)
     @third_frame.calculate_score_bonus(@second_frame, @first_frame)
-    expect(@first_frame.score).to eq(16)
+    expect(@first_frame.score).to eq(14)
   end
 end
